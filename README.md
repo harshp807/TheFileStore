@@ -45,7 +45,7 @@ The FastAPI server exposes various endpoints for file operations:
 To run the server:
 
 ```bash
-uvicorn server:app --reload
+uvicorn -m server:app --reload
 ```
 
 ---
