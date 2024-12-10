@@ -20,7 +20,7 @@ pip install fastapi requests
 1. Clone the repository and navigate to the project directory.
 2. Start the FastAPI server by running:
    ```bash
-   uvicorn server:app --reload
+   upython -m uvicorn server:app --reload
    ```
 
 ## CLI Usage
