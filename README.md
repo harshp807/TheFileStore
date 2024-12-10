@@ -1,6 +1,6 @@
 
 
-```markdown
+
 # File Store Service
 
 This project implements a file store service that allows users to upload, list, remove, and update files through a RESTful API. The server-side application uses **FastAPI**, and the client-side application is a simple **CLI** that interacts with the server via HTTP requests.
