@@ -1,113 +1,107 @@
 
 
+# File Store CLI
 
-# File Store Service
+A command-line interface (CLI) to manage files on a server, with functionalities to add, list, remove, update files, retrieve word counts, and fetch frequent words across all files. Built with FastAPI and Python.
 
-This project implements a file store service that allows users to upload, list, remove, and update files through a RESTful API. The server-side application uses **FastAPI**, and the client-side application is a simple **CLI** that interacts with the server via HTTP requests.
+## Prerequisites
 
-## Features
-- Add files to the server.
-- List all files on the server.
-- Remove files from the server.
-- Update files already stored on the server.
-- Perform word count and frequency analysis on all stored files.
-- Handle duplicate files using SHA256 hashing.
+- Python 3.x
+- FastAPI
+- Requests library
 
-## Installation
-
-### Server-Side (FastAPI)
-
-To set up the server, you'll need to install the required dependencies:
-
+You can install the necessary libraries using:
 ```bash
-pip install fastapi uvicorn python-multipart
+pip install fastapi requests
 ```
 
-Create a directory to store the uploaded files:
+## Setup and Running the Server
 
+1. Clone the repository and navigate to the project directory.
+2. Start the FastAPI server by running:
+   ```bash
+   uvicorn server:app --reload
+   ```
+
+## CLI Usage
+
+This CLI interacts with the FastAPI server to manage files. You can run the CLI commands to perform various file operations.
+
+### Commands
+
+#### `add`
+Add one or more files to the server.
+
+**Usage**:
 ```bash
-mkdir uploaded_files
+python client.py add <file1> <file2> ...
 ```
 
-### Server Implementation (`server.py`)
-
-The FastAPI server exposes various endpoints for file operations:
-
-1. **Add files** (`/files/add`): Upload multiple files.
-2. **List files** (`/files`): List all files stored on the server.
-3. **Remove file** (`/files/{filename}`): Delete a specific file.
-4. **Update file** (`/files/{filename}`): Replace an existing file's content.
-5. **Word count** (`/files/wc`): Count the total number of words in all files.
-6. **Frequent words** (`/files/freq-words`): Get the most frequent words across all files.
-
-
-
-To run the server:
-
-```bash
-uvicorn -m server:app --reload
-```
-
----
-
-### Client-Side (CLI)
-
-The client interacts with the server using the **requests** library. You can install it using:
-
-```bash
-pip install requests
-```
-
-### Client Implementation (`client.py`)
-
-The client provides several commands to interact with the server:
-
-- **Add files** (`python client.py add file1.txt file2.txt`)
-- **List files** (`python client.py ls`)
-- **Remove files** (`python client.py rm file1.txt`)
-- **Update files** (`python client.py update file1.txt new_file.txt`)
-
----
-
-## Testing the Service
-
-Once the server is running, you can use the client to perform various operations:
-
-1. **Add files**:
-
+Example:
 ```bash
 python client.py add file1.txt file2.txt
 ```
 
-2. **List files**:
+#### `ls`
+List all files currently stored on the server.
 
+**Usage**:
 ```bash
 python client.py ls
 ```
 
-3. **Remove a file**:
+#### `rm`
+Remove a specific file from the server.
 
+**Usage**:
+```bash
+python client.py rm <filename>
+```
+
+Example:
 ```bash
 python client.py rm file1.txt
 ```
 
-4. **Update a file**:
+#### `update`
+Update an existing file on the server with a new file.
 
+**Usage**:
+```bash
+python client.py update <filename> <new_file>
+```
+
+Example:
 ```bash
 python client.py update file1.txt new_file.txt
 ```
 
-### Duplicate File Handling
+#### `wc`
+Get the total word count for all files stored on the server.
 
-To prevent the upload of duplicate files (based on their content), the server calculates a **SHA256** hash for each file. If a file with the same hash exists, the upload is skipped.
+**Usage**:
+```bash
+python client.py wc
+```
 
-The client automatically benefits from this feature since it interacts with the server that handles duplicates.
+#### `freq-words`
+Get the most or least frequent words across all files stored on the server. You can specify the number of words to return with `--limit` (or `-n`), and control the sorting order with `--order` (either `asc` or `dsc`).
+
+**Usage**:
+```bash
+python client.py freq-words --limit <number> --order <asc|dsc>
+```
+
+Example:
+```bash
+python client.py freq-words --limit 10 --order dsc
+```
+
+### Parameters for `freq-words`
+
+- `--limit, -n`: Limit the number of words returned (default is 10).
+- `--order`: Sort the words either in ascending (`asc`) or descending (`dsc`) order of frequency.
 
 ---
 
-## Conclusion
-
-This project provides a simple yet efficient file store service with additional features such as word count analysis, frequent word identification, and duplicate file handling using hashing. It demonstrates a practical usage of **FastAPI** for server-side file management and a **Python CLI** for easy client interaction.
-```
-
-This structure organizes the server and client-side instructions, along with testing information and feature explanations. It includes code snippets for both sides and clear installation instructions for setting up the project.
+This `README.md` file now reflects the updated functionality of the CLI commands, including adding support for word count and frequent words operations. Let me know if you'd like to add or modify anything else!
